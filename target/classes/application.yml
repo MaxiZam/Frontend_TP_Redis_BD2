@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: ventas-productos
+
+  redis:
+    host: localhost # Correcto, Docker expone Redis en localhost:6379
+    port: 6379      # Correcto
+    timeout: 6000
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 4
+        min-idle: 1
+
+  datasource:
+    url: jdbc:postgresql://localhost:5002/productos_db # Correcto, Docker expone DB en localhost:5002
+    username: postgres
+    password: 1111
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type: TRACE
+      springframework: DEBUG
+  file:
+    name: logs/application.log

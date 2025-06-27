@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # configuracion BD
+  db:
+    image: postgres:12.10
+    container_name: productos_db_container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1111
+      POSTGRES_DB: productos_db
+    ports:
+      - "5002:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - productos_net
+
+  # configuracion Redis
+  redis:
+    image: redis:latest
+    container_name: redis_container
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - productos_net
+
+volumes:
+  pgdata:
+  redis-data:
+
+networks:
+  productos_net:
+    driver: bridge
